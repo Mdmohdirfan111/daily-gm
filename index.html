@@ -3,48 +3,106 @@
 <head>
     <title>Daily GM</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            background-color: #f5f5f5;
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --text: #2b2d42;
         }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: var(--text);
+        }
+        .card {
+            width: 380px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        p.subtext {
+            color: #6c757d;
+            margin-bottom: 30px;
         }
         button {
-            background-color: #4CAF50;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 12px 24px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
         button:disabled {
-            background-color: #cccccc;
+            background: #e9ecef;
+            color: #adb5bd;
+            transform: none !important;
             cursor: not-allowed;
         }
         #status {
             margin-top: 20px;
-            font-weight: bold;
+            font-size: 14px;
+            min-height: 20px;
+        }
+        .wallet-address {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            margin-top: 15px;
+            word-break: break-all;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="card">
         <h1>🌞 Daily GM</h1>
-        <p>Connect your wallet and sign GM once per day!</p>
+        <p class="subtext">Sign once per day to earn rewards!</p>
+        
         <button id="connectWallet">Connect Wallet</button>
         <button id="gmButton" disabled>Sign GM</button>
+        
         <div id="status"></div>
+        <div id="walletAddress" class="wallet-address" style="display: none;"></div>
     </div>
     <script src="app.js"></script>
 </body>
