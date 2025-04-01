@@ -2,31 +2,53 @@ let userAddress;
 const contractAddress = "0xa1E5b475815a84F10b1E5Dc05Cf2Faf5FE0bb8c0";
 const abi = [{"inputs":[],"name":"gm","outputs":[],"stateMutability":"nonpayable","type":"function"}];
 
-document.getElementById("connectWallet").onclick = async () => {
+// Elements
+const connectBtn = document.getElementById("connectWallet");
+const gmBtn = document.getElementById("gmButton");
+const statusEl = document.getElementById("status");
+const walletEl = document.getElementById("walletAddress");
+
+// Connect Wallet
+connectBtn.onclick = async () => {
     if (window.ethereum) {
         try {
-            userAddress = await window.ethereum.request({ method: "eth_requestAccounts" });
-            document.getElementById("gmButton").disabled = false;
-            document.getElementById("status").textContent = `Connected: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
+            statusEl.innerHTML = '<div class="loader"></div> Connecting...';
+            const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+            userAddress = accounts[0];
+            
+            connectBtn.disabled = true;
+            gmBtn.disabled = false;
+            
+            walletEl.textContent = userAddress;
+            walletEl.style.display = "block";
+            statusEl.textContent = "✅ Wallet connected!";
+            
         } catch (error) {
-            document.getElementById("status").textContent = "Error: " + error.message;
+            statusEl.textContent = `❌ Error: ${error.message}`;
         }
     } else {
-        document.getElementById("status").textContent = "MetaMask not installed!";
+        statusEl.textContent = "❌ MetaMask not installed!";
     }
 };
 
-document.getElementById("gmButton").onclick = async () => {
+// Sign GM
+gmBtn.onclick = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(contractAddress, abi, provider.getSigner());
+    
     try {
-        document.getElementById("gmButton").disabled = true;
-        document.getElementById("status").textContent = "Sending transaction...";
+        gmBtn.disabled = true;
+        statusEl.innerHTML = '<div class="loader"></div> Signing GM...';
+        
         const tx = await contract.gm();
+        statusEl.innerHTML = '<div class="loader"></div> Waiting for confirmation...';
+        
         await tx.wait();
-        document.getElementById("status").textContent = "✅ GM recorded! Come back tomorrow.";
+        statusEl.textContent = "🎉 GM signed! Come back tomorrow.";
+        gmBtn.disabled = true;
+        
     } catch (error) {
-        document.getElementById("status").textContent = "Error: " + error.message;
-        document.getElementById("gmButton").disabled = false;
+        statusEl.textContent = `❌ Error: ${error.message}`;
+        gmBtn.disabled = false;
     }
 };
