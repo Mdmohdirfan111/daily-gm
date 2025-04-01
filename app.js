@@ -4,7 +4,11 @@ const CONTRACT_ABI = [{"inputs":[],"name":"gm","outputs":[],"stateMutability":"n
 const MONAD_TESTNET = {
     chainId: "0x4d8", // 1160 in decimal
     chainName: "Monad Testnet",
-    nativeCurrency: { name: "Monad", symbol: "MONAD", decimals: 18 },
+    nativeCurrency: { 
+        name: "Monad", 
+        symbol: "MONAD", 
+        decimals: 18 
+    },
     rpcUrls: ["https://testnet-rpc.monad.xyz"],
     blockExplorerUrls: ["https://testnet-explorer.monad.xyz"]
 };
