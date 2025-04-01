@@ -1,91 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Daily GM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Greeter</title>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --text: #2b2d42;
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --error: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --text: #111827;
+            --text-light: #6B7280;
+            --bg: #F9FAFB;
+            --card: #FFFFFF;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: var(--bg);
             min-height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
             color: var(--text);
         }
         .card {
-            width: 380px;
-            background: white;
+            width: 420px;
+            background: var(--card);
             border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s ease;
+            padding: 32px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            margin: 0 0 10px;
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .header h1 {
             font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 8px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 14px;
+        }
+        .network-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F3F4F6;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .network-status span {
+            font-weight: 500;
+        }
+        .network-status .indicator {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .network-status .connected {
+            background: var(--success);
+        }
+        .network-status .disconnected {
+            background: var(--error);
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            margin-bottom: 12px;
         }
-        p.subtext {
-            color: #6c757d;
-            margin-bottom: 30px;
-        }
-        button {
+        .btn-primary {
             background: linear-gradient(to right, var(--primary), var(--primary-dark));
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin: 8px 0;
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-        button:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
-        button:disabled {
-            background: #e9ecef;
-            color: #adb5bd;
+        .btn-primary:disabled {
+            background: #E5E7EB;
+            color: #9CA3AF;
             transform: none !important;
+            box-shadow: none;
             cursor: not-allowed;
         }
-        #status {
+        .btn-secondary {
+            background: #E5E7EB;
+            color: var(--text);
+        }
+        .btn-secondary:hover {
+            background: #D1D5DB;
+            transform: translateY(-2px);
+        }
+        .greet-options {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .greet-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            background: #E5E7EB;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .greet-btn.active {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .status.loading {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        .status.success {
+            background: #ECFDF5;
+            color: #065F46;
+        }
+        .status.error {
+            background: #FEE2E2;
+            color: #B91C1C;
+        }
+        .wallet-info {
             margin-top: 20px;
             font-size: 14px;
-            min-height: 20px;
-        }
-        .wallet-address {
-            background: #f8f9fa;
-            padding: 8px;
-            border-radius: 6px;
-            font-family: monospace;
-            margin-top: 15px;
             word-break: break-all;
+            background: #F3F4F6;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
         }
         .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--primary);
+            border: 2px solid #E5E7EB;
+            border-top: 2px solid var(--primary);
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -95,15 +183,33 @@
 </head>
 <body>
     <div class="card">
-        <h1>🌞 Daily GM</h1>
-        <p class="subtext">Sign once per day to earn rewards!</p>
-        
-        <button id="connectWallet">Connect Wallet</button>
-        <button id="gmButton" disabled>Sign GM</button>
-        
-        <div id="status"></div>
-        <div id="walletAddress" class="wallet-address" style="display: none;"></div>
+        <div class="header">
+            <h1>Daily Greeter</h1>
+            <p>Send GM or GN to the blockchain</p>
+        </div>
+
+        <div class="network-status" id="networkStatus">
+            <span>
+                <span class="indicator disconnected" id="networkIndicator"></span>
+                <span id="networkName">Not Connected</span>
+            </span>
+            <button class="btn-secondary" id="switchNetworkBtn" style="display: none; padding: 6px 12px; font-size: 12px;">Switch Network</button>
+        </div>
+
+        <button class="btn btn-primary" id="connectWalletBtn">Connect Wallet</button>
+        <button class="btn btn-secondary" id="disconnectWalletBtn" style="display: none;">Disconnect</button>
+
+        <div class="greet-options">
+            <button class="greet-btn active" id="gmBtn">GM ☀️</button>
+            <button class="greet-btn" id="gnBtn">GN 🌙</button>
+        </div>
+
+        <button class="btn btn-primary" id="signGreetBtn" disabled>Sign Greeting</button>
+
+        <div class="status" id="statusEl"></div>
+        <div class="wallet-info" id="walletInfo"></div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
