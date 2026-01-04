@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JMD Enterprises | Professional Invoice Management System</title>
+    <title>JMD Enterprises | Professional Invoice System</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -51,28 +51,30 @@
         <button onclick="document.getElementById('excelImport').click()">Upload Excel</button>
         <input type="file" id="excelImport" accept=".xlsx,.xls" hidden>
         <button onclick="saveInvoice()">Save Invoice</button>
-        <button onclick="loadInvoices()">Load Saved Invoices</button>
+        <button onclick="loadInvoices()">Load Saved</button>
     </div>
 
-    <table id="invoiceTable">
-        <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Item Description</th>
-                <th>HSN/SAC Code</th>
-                <th>GST Rate (%)</th>
-                <th>Quantity</th>
-                <th>MRP</th>
-                <th>Margin (%)</th>
-                <th>Unit Price</th>
-                <th>Taxable Value</th>
-                <th class="no-print">Action</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
+    <div class="table-wrapper">
+        <table id="invoiceTable">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Item Description</th>
+                    <th>HSN/SAC Code</th>
+                    <th>GST Rate (%)</th>
+                    <th>Quantity</th>
+                    <th>MRP</th>
+                    <th>Margin (%)</th>
+                    <th>Unit Price</th>
+                    <th>Taxable Value</th>
+                    <th class="no-print">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
 
-    <div class="totals-area">
+    <div class="summary-box">
         <div class="gst-breakdown" id="gstBreakdown"></div>
         <div class="final-calc">
             <p>Total Quantity: <span id="totalQty">0</span></p>
@@ -83,24 +85,6 @@
             <p id="grandTotalWords" class="amount-in-words">Amount in Words: Zero Rupees Only</p>
         </div>
     </div>
-
-    <section class="bank-details">
-        <h3>Bank Details</h3>
-        <p>Bank Name: [Your Bank Name]</p>
-        <p>Account Number: [Your Account Number]</p>
-        <p>IFSC Code: [Your IFSC Code]</p>
-        <p>Branch: [Your Branch Name]</p>
-    </section>
-
-    <section class="terms">
-        <h3>Terms & Conditions</h3>
-        <ul>
-            <li>Goods once sold will not be taken back or exchanged.</li>
-            <li>Payment due within 30 days from invoice date.</li>
-            <li>Interest @18% p.a. will be charged on overdue payments.</li>
-            <li>All disputes subject to Hyderabad jurisdiction.</li>
-        </ul>
-    </section>
 
     <footer class="no-print">
         <button class="btn-print" onclick="validateAndPrint()">Print Invoice</button>
