@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JMD Enterprises | Tax Invoice</title>
+    <title>JMD Enterprises | Professional Invoice Management System</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -17,52 +16,56 @@
             <h1>TAX INVOICE</h1>
             <h2>JMD Enterprises</h2>
             <p>Dispatch of goods from: Sai Tower, Rukhminipuri, Hyderabad, Telangana - 500062</p>
-            <p>Phone: 7095460374 | Email: Jmdenterprises1985.108@gmail.com</p>
+            <p>Phone: +91 7095460374 | Email: jmdenterprises1985.108@gmail.com</p>
             <p><strong>GSTIN: 36CRUPS1658B1ZD</strong></p>
         </div>
         <div class="invoice-meta">
-            <div class="field">
-                <label>Invoice No:</label>
-                <input type="text" id="invNo" placeholder="INV-001">
-            </div>
-            <div class="field">
-                <label>Date:</label>
-                <input type="date" id="invDate">
-            </div>
-            <div class="field">
-                <label>PO No:</label>
-                <input type="text" id="poNo" placeholder="PO123">
+            <div class="meta-row">
+                <div class="field">
+                    <label>Invoice No:</label>
+                    <input type="text" id="invNo" placeholder="INV-001" readonly>
+                </div>
+                <div class="field">
+                    <label>Date:</label>
+                    <input type="date" id="invDate" required>
+                </div>
+                <div class="field">
+                    <label>PO No:</label>
+                    <input type="text" id="poNo" placeholder="PO123">
+                </div>
             </div>
         </div>
     </header>
 
     <section class="billing-section">
         <h3>Ship To / Bill To:</h3>
-        <textarea id="shipTo" placeholder="Enter client name and full address..."></textarea>
+        <textarea id="shipTo" placeholder="Enter client name, full address, and contact details..." required></textarea>
         <div class="gstin-row">
             <label>Buyer GSTIN:</label>
-            <input type="text" id="buyerGstin" placeholder="e.g. 36AAAAA0000A1Z5" oninput="calculateInvoice()">
+            <input type="text" id="buyerGstin" placeholder="e.g. 36AAAAA0000A1Z5" oninput="calculateInvoice()" required>
         </div>
     </section>
 
     <div class="controls no-print">
-        <button onclick="addRow()">+ Add Row</button>
+        <button onclick="addRow()">+ Add Item</button>
         <button onclick="document.getElementById('excelImport').click()">Upload Excel</button>
         <input type="file" id="excelImport" accept=".xlsx,.xls" hidden>
+        <button onclick="saveInvoice()">Save Invoice</button>
+        <button onclick="loadInvoices()">Load Saved Invoices</button>
     </div>
 
     <table id="invoiceTable">
         <thead>
             <tr>
                 <th>S.No</th>
-                <th>Product Name</th>
-                <th>HSN</th>
-                <th>GST %</th>
-                <th>Qty</th>
+                <th>Item Description</th>
+                <th>HSN/SAC Code</th>
+                <th>GST Rate (%)</th>
+                <th>Quantity</th>
                 <th>MRP</th>
-                <th>Margin</th>
-                <th>Rate</th>
-                <th>Taxable Amt</th>
+                <th>Margin (%)</th>
+                <th>Unit Price</th>
+                <th>Taxable Value</th>
                 <th class="no-print">Action</th>
             </tr>
         </thead>
@@ -72,18 +75,42 @@
     <div class="totals-area">
         <div class="gst-breakdown" id="gstBreakdown"></div>
         <div class="final-calc">
-            <p>Total Qty: <span id="totalQty">0</span></p>
-            <p>Total Taxable: ₹<span id="totalTaxable">0.00</span></p>
-            <p>Total GST: ₹<span id="totalGst">0.00</span></p>
+            <p>Total Quantity: <span id="totalQty">0</span></p>
+            <p>Total Taxable Value: ₹<span id="totalTaxable">0.00</span></p>
+            <p>Total GST Amount: ₹<span id="totalGst">0.00</span></p>
             <hr>
             <h3>Grand Total: ₹<span id="grandTotal">0.00</span></h3>
+            <p id="grandTotalWords" class="amount-in-words">Amount in Words: Zero Rupees Only</p>
         </div>
     </div>
 
+    <section class="bank-details">
+        <h3>Bank Details</h3>
+        <p>Bank Name: [Your Bank Name]</p>
+        <p>Account Number: [Your Account Number]</p>
+        <p>IFSC Code: [Your IFSC Code]</p>
+        <p>Branch: [Your Branch Name]</p>
+    </section>
+
+    <section class="terms">
+        <h3>Terms & Conditions</h3>
+        <ul>
+            <li>Goods once sold will not be taken back or exchanged.</li>
+            <li>Payment due within 30 days from invoice date.</li>
+            <li>Interest @18% p.a. will be charged on overdue payments.</li>
+            <li>All disputes subject to Hyderabad jurisdiction.</li>
+        </ul>
+    </section>
+
     <footer class="no-print">
-        <button class="btn-print" onclick="window.print()">Print Invoice</button>
-        <p>Made by Irfan.eth</p>
+        <button class="btn-print" onclick="validateAndPrint()">Print Invoice</button>
+        <p class="professional-note">Powered by JMD Professional Invoice Management System | Developed by Irfan Shaik</p>
     </footer>
+
+    <div id="invoiceList" class="no-print" style="display: none;">
+        <h3>Saved Invoices</h3>
+        <ul id="savedInvoices"></ul>
+    </div>
 </div>
 
 <script src="script.js"></script>
