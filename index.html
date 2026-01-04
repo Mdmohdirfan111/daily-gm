@@ -3,213 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Greeter</title>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4F46E5;
-            --primary-dark: #4338CA;
-            --error: #EF4444;
-            --success: #10B981;
-            --warning: #F59E0B;
-            --text: #111827;
-            --text-light: #6B7280;
-            --bg: #F9FAFB;
-            --card: #FFFFFF;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text);
-        }
-        .card {
-            width: 420px;
-            background: var(--card);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0 0 8px;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .header p {
-            color: var(--text-light);
-            margin: 0;
-            font-size: 14px;
-        }
-        .network-status {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #F3F4F6;
-            padding: 10px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .network-status span {
-            font-weight: 500;
-        }
-        .network-status .indicator {
-            height: 10px;
-            width: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        .network-status .connected {
-            background: var(--success);
-        }
-        .network-status .disconnected {
-            background: var(--error);
-        }
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            margin-bottom: 12px;
-        }
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-        .btn-primary:disabled {
-            background: #E5E7EB;
-            color: #9CA3AF;
-            transform: none !important;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        .btn-secondary {
-            background: #E5E7EB;
-            color: var(--text);
-        }
-        .btn-secondary:hover {
-            background: #D1D5DB;
-            transform: translateY(-2px);
-        }
-        .greet-options {
-            display: flex;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        .greet-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            background: #E5E7EB;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .greet-btn.active {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-        }
-        .status {
-            margin-top: 20px;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            text-align: center;
-        }
-        .status.loading {
-            background: #FEF3C7;
-            color: #92400E;
-        }
-        .status.success {
-            background: #ECFDF5;
-            color: #065F46;
-        }
-        .status.error {
-            background: #FEE2E2;
-            color: #B91C1C;
-        }
-        .wallet-info {
-            margin-top: 20px;
-            font-size: 14px;
-            word-break: break-all;
-            background: #F3F4F6;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-        }
-        .loader {
-            border: 2px solid #E5E7EB;
-            border-top: 2px solid var(--primary);
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    <title>JMD Enterprises | Invoice System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div class="card">
-        <div class="header">
-            <h1>Daily Greeter</h1>
-            <p>Send GM or GN to the blockchain</p>
+
+<div class="container">
+    <header>
+        <div class="company-info">
+            <h1>TAX INVOICE</h1>
+            <h2>JMD Enterprises</h2>
+            <p>Sai Tower, Rukhminipuri, Hyderabad, Telangana - 500062</p>
+            <p>Phone: 7095460374 | Email: Jmdenterprises1985.108@gmail.com</p>
+            <p><strong>GSTIN: 36CRUPS1658B1ZD</strong></p>
         </div>
-
-        <div class="network-status" id="networkStatus">
-            <span>
-                <span class="indicator disconnected" id="networkIndicator"></span>
-                <span id="networkName">Not Connected</span>
-            </span>
-            <button class="btn-secondary" id="switchNetworkBtn" style="display: none; padding: 6px 12px; font-size: 12px;">Switch Network</button>
+        <div class="invoice-meta">
+            <input type="text" id="invNo" placeholder="Invoice Number">
+            <input type="date" id="invDate">
+            <input type="text" id="poNo" placeholder="PO Number">
         </div>
+    </header>
 
-        <button class="btn btn-primary" id="connectWalletBtn">Connect Wallet</button>
-        <button class="btn btn-secondary" id="disconnectWalletBtn" style="display: none;">Disconnect</button>
-
-        <div class="greet-options">
-            <button class="greet-btn active" id="gmBtn">GM ☀️</button>
-            <button class="greet-btn" id="gnBtn">GN 🌙</button>
+    <section class="billing-section">
+        <div class="bill-to">
+            <h3>Ship To / Bill To:</h3>
+            <textarea id="shipTo" placeholder="Enter Client Address..."></textarea>
+            <input type="text" id="buyerGstin" placeholder="Buyer GSTIN (e.g. 36...)" oninput="calculateInvoice()">
+            <p id="gstType" class="badge">Type: Intra-State (CGST/SGST)</p>
         </div>
+    </section>
 
-        <button class="btn btn-primary" id="signGreetBtn" disabled>Sign Greeting</button>
-
-        <div class="status" id="statusEl"></div>
-        <div class="wallet-info" id="walletInfo"></div>
+    <div class="controls">
+        <button onclick="addRow()">+ Add Row</button>
+        <input type="file" id="excelImport" accept=".xlsx, .xls" hidden>
+        <button onclick="document.getElementById('excelImport').click()">Upload Excel</button>
     </div>
 
-    <script src="app.js"></script>
+    <table id="invoiceTable">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Product Name</th>
+                <th>HSN</th>
+                <th>GST %</th>
+                <th>Qty</th>
+                <th>MRP</th>
+                <th>Rate</th>
+                <th>Taxable Amt</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            </tbody>
+    </table>
+
+    <div class="totals-area">
+        <div class="gst-breakdown" id="gstBreakdown">
+            </div>
+        <div class="final-calc">
+            <p>Total Qty: <span id="totalQty">0</span></p>
+            <p>Total Taxable: ₹<span id="totalTaxable">0.00</span></p>
+            <p>Total GST: ₹<span id="totalGst">0.00</span></p>
+            <hr>
+            <h3>Grand Total: ₹<span id="grandTotal">0.00</span></h3>
+        </div>
+    </div>
+
+    <footer class="no-print">
+        <button class="btn-download" onclick="downloadPDF()">Download PDF</button>
+        <button class="btn-download" onclick="downloadExcel()">Export Excel</button>
+        <p>Made by Irfan.eth</p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
