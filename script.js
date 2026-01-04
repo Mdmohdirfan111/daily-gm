@@ -88,16 +88,23 @@ document.getElementById('excelImport').addEventListener('change', (e) => {
 function downloadPDF() {
     const source = document.querySelector('.container');
     const clone = source.cloneNode(true);
+    
+    // Add printing class for compact styles
     clone.classList.add('printing');
+    
+    // Hide controls and action column
+    clone.querySelectorAll('.no-print, .controls').forEach(el => el.remove());
+    clone.querySelectorAll('th:last-child, td:last-child').forEach(el => el.remove());
 
     const opt = {
-        margin: 0.3,
-        filename: `Invoice_${document.getElementById('invNo').value || 'unnamed'}.pdf`,
+        margin: [0.3, 0.3, 0.3, 0.3],
+        filename: `Invoice_${document.getElementById('invNo').value || 'Draft'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
+
     html2pdf().set(opt).from(clone).save();
 }
 
