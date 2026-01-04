@@ -1,111 +1,125 @@
 :root {
-    --primary: #1e3a8a;
-    --accent: #10b981;
+    --primary: #1d4ed8;
+    --accent: #22c55e;
     --border: #000000;
-    --light-bg: #f8fafc;
+    --light-bg: #f9fafb;
+    --text-color: #111827;
+    --subtext: #4b5563;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Roboto', sans-serif;
     background: var(--light-bg);
-    margin: 0;
-    padding: 20px;
-    color: #1f2937;
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 30px;
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: auto;
     background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 1px solid #e2e8f0;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border: 1px solid #e5e7eb;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border-bottom: 3px solid var(--primary);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-    background: #eef2ff;
-    padding: 20px;
-    border-radius: 8px;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: #eff6ff;
+    border-radius: 12px;
+    border: 1px solid #bfdbfe;
 }
 
 .company-info h1 {
-    font-size: 2.2em;
+    font-size: 2.5em;
     color: var(--primary);
-    margin: 0 0 10px 0;
     font-weight: 700;
-}
-
-.company-info h2 {
-    font-size: 1.6em;
-    color: var(--accent);
-    margin: 8px 0;
-}
-
-.company-info p {
-    margin: 6px 0;
-    font-size: 1em;
-    line-height: 1.5;
-}
-
-.invoice-meta {
-    text-align: right;
-}
-
-.field {
     margin-bottom: 12px;
 }
 
-.field label {
-    display: block;
+.company-info h2 {
+    font-size: 1.8em;
+    color: var(--accent);
     font-weight: 500;
-    font-size: 0.95em;
-    color: #374151;
+}
+
+.company-info p {
+    font-size: 1.05em;
+    color: var(--subtext);
+    margin: 6px 0;
+}
+
+.invoice-meta .meta-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text-color);
 }
 
 .field input {
-    width: 220px;
-    padding: 8px 12px;
-    border: 1px solid #94a3b8;
-    border-radius: 6px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 1em;
+    width: 200px;
 }
 
 h3 {
-    margin: 20px 0 10px;
-    font-size: 1.2em;
+    font-size: 1.4em;
     color: var(--primary);
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
 textarea {
     width: 100%;
-    height: 90px;
-    padding: 12px;
-    border: 1px solid #94a3b8;
+    height: 120px;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
     resize: vertical;
     font-size: 1em;
 }
 
+.gstin-row {
+    margin: 15px 0;
+}
+
 .gstin-row label {
     display: block;
-    margin: 12px 0 6px;
     font-weight: 500;
+    margin-bottom: 6px;
 }
 
 #buyerGstin {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #94a3b8;
-    border-radius: 6px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
 }
 
 .controls button {
@@ -115,133 +129,144 @@ textarea {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-right: 12px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: background 0.3s, transform 0.3s;
 }
 
 .controls button:hover {
-    background: #059669;
+    background: #16a34a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(16,185,129,0.3);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 0.95em;
-    border: 2px solid var(--border);
+    margin: 25px 0;
+    font-size: 1em;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    vertical-align: middle;
 }
 
 th {
     background: var(--primary);
     color: white;
-    padding: 12px 8px;
-    text-align: left;
-    border: 1px solid var(--border);
-    font-weight: 500;
+    font-weight: 600;
 }
 
-td {
-    padding: 10px 8px;
-    border: 1px solid var(--border);
-    vertical-align: middle;
+td input {
+    text-align: center;
 }
-
-input[type="text"], input[type="number"] {
-    width: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: inherit;
-    padding: 4px 0;
-}
-
-input[type="number"] { text-align: right; }
 
 .totals-area {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 3px double var(--primary);
+    padding: 25px;
     background: #f0f9ff;
-    padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
+    margin-top: 30px;
+    border: 1px solid #bfdbfe;
 }
 
 .gst-breakdown {
-    line-height: 1.8;
-    font-weight: 600;
-    font-size: 1.05em;
-}
-
-.final-calc p {
-    text-align: right;
-    margin: 8px 0;
     font-size: 1.1em;
+    line-height: 1.7;
     font-weight: 500;
 }
 
-.final-calc h3 {
+.final-calc {
     text-align: right;
+}
+
+.final-calc p, .final-calc h3 {
+    margin: 8px 0;
+}
+
+.final-calc h3 {
+    font-size: 1.8em;
     color: var(--primary);
-    font-size: 1.6em;
-    font-weight: 700;
-    margin-top: 12px;
+}
+
+.amount-in-words {
+    font-style: italic;
+    color: var(--subtext);
+    margin-top: 10px;
+}
+
+.bank-details, .terms {
+    margin-top: 40px;
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.bank-details p, .terms ul li {
+    font-size: 1em;
+    color: var(--subtext);
+}
+
+.terms ul {
+    list-style-type: disc;
+    padding-left: 20px;
 }
 
 .btn-print {
-    padding: 16px 40px;
+    display: block;
+    width: 100%;
+    padding: 16px;
     background: var(--primary);
     color: white;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
     font-size: 1.2em;
     font-weight: 600;
-    margin: 20px 0;
-    transition: all 0.3s;
+    cursor: pointer;
+    margin: 30px 0 20px;
+    transition: background 0.3s;
 }
 
 .btn-print:hover {
     background: #1e40af;
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(30,58,138,0.3);
 }
 
-.no-print button[onclick*="remove"] {
-    background: #ef4444;
-    color: white;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.3em;
-}
-
-footer p {
+.professional-note {
     text-align: center;
-    margin-top: 40px;
-    color: #6b7280;
-    font-style: italic;
+    color: var(--subtext);
+    font-size: 0.95em;
 }
 
-/* Print Styles - Compact & Clean */
+#invoiceList {
+    margin-top: 40px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+#savedInvoices li {
+    margin: 10px 0;
+    cursor: pointer;
+    color: var(--primary);
+}
+
 @media print {
-    body { background: white; padding: 0; }
-    .container { 
-        padding: 15px; 
-        box-shadow: none; 
-        border: none; 
-        border-radius: 0; 
-    }
-    .no-print, .controls { display: none !important; }
+    body { padding: 0; background: white; }
+    .container { padding: 20px; box-shadow: none; border: none; }
+    .no-print { display: none !important; }
     th:last-child, td:last-child { display: none !important; }
-    header { background: none !important; }
-    .totals-area { background: none !important; }
-    table, th, td { border: 1px solid black !important; }
-    input { border: none !important; }
+    .controls, footer { display: none !important; }
+    table, th, td { border: 1px solid black !important; text-align: center !important; }
+    input, textarea { border: none !important; appearance: none; background: transparent !important; }
+}
+
+@media (max-width: 768px) {
+    header { flex-direction: column; }
+    .meta-row { flex-direction: column; gap: 15px; }
+    .totals-area { flex-direction: column; gap: 20px; }
+    .final-calc { text-align: left; }
 }
