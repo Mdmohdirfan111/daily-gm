@@ -60,6 +60,13 @@ header {
     text-align: right;
 }
 
+.invoice-meta label {
+    display: block;
+    font-size: 0.9em;
+    color: var(--subtext);
+    margin-bottom: 4px;
+}
+
 .invoice-meta input {
     display: block;
     margin-bottom: 12px;
@@ -68,6 +75,13 @@ header {
     border-radius: 6px;
     width: 220px;
     font-size: 1em;
+}
+
+.billing-section label {
+    display: block;
+    font-size: 0.9em;
+    color: var(--subtext);
+    margin-bottom: 4px;
 }
 
 textarea { 
@@ -144,7 +158,7 @@ td {
     background: white;
 }
 
-input[type="text"], input[type="number"] { 
+input[type="text"], input[type="number"], input[type="date"] { 
     width: 100%; 
     border: none; 
     outline: none; 
@@ -224,4 +238,24 @@ footer p {
     .container { box-shadow: none; padding: 20px; }
     .no-print, .controls { display: none; }
     th:last-child, td:last-child { display: none; }
+    header { padding-bottom: 10px; margin-bottom: 10px; }
+    .billing-section { margin-top: 10px; }
+    table { margin-top: 10px; page-break-inside: auto; }
+    .totals-area { margin-top: 20px; padding-top: 10px; }
+    tr { page-break-inside: avoid; page-break-after: auto; }
+    thead { display: table-header-group; }
+    textarea { height: 60px !important; }
+    .invoice-meta input, #buyerGstin { width: auto; border: 1px solid var(--border); padding: 5px; }
 }
+
+/* For html2pdf emulation */
+.printing .no-print, .printing .controls, .printing th:last-child, .printing td:last-child { display: none !important; }
+.printing { box-shadow: none !important; width: 100% !important; padding: 20px !important; margin: 0 !important; background: white !important; }
+.printing header { padding-bottom: 10px !important; margin-bottom: 10px !important; }
+.printing .billing-section { margin-top: 10px !important; }
+.printing table { margin-top: 10px !important; page-break-inside: auto !important; }
+.printing .totals-area { margin-top: 20px !important; padding-top: 10px !important; }
+.printing tr { page-break-inside: avoid !important; page-break-after: auto !important; }
+.printing thead { display: table-header-group !important; }
+.printing textarea { height: 60px !important; }
+.printing .invoice-meta input, .printing #buyerGstin { width: auto !important; border: 1px solid var(--border) !important; padding: 5px !important; }
