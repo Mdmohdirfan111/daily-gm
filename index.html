@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JMD Enterprises | Invoice System</title>
+    <title>JMD Enterprises | Invoice Management System</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/docx@8.0.0/build/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body>
 
@@ -15,7 +17,7 @@
         <div class="company-info">
             <h1>TAX INVOICE</h1>
             <h2>JMD Enterprises</h2>
-            <p>Sai Tower, Rukhminipuri, Hyderabad, Telangana - 500062</p>
+            <p>Dispatch of goods from: Sai Tower, Rukhminipuri, Hyderabad, Telangana - 500062</p>
             <p>Phone: 7095460374 | Email: Jmdenterprises1985.108@gmail.com</p>
             <p><strong>GSTIN: 36CRUPS1658B1ZD</strong></p>
         </div>
@@ -50,6 +52,7 @@
                 <th>GST %</th>
                 <th>Qty</th>
                 <th>MRP</th>
+                <th>Margin</th>
                 <th>Rate</th>
                 <th>Taxable Amt</th>
                 <th>Action</th>
@@ -74,6 +77,7 @@
     <footer class="no-print">
         <button class="btn-download" onclick="downloadPDF()">Download PDF</button>
         <button class="btn-download" onclick="downloadExcel()">Export Excel</button>
+        <button class="btn-download" onclick="downloadWord()">Export Word</button>
         <p>Made by Irfan.eth</p>
     </footer>
 </div>
