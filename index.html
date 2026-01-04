@@ -22,9 +22,12 @@
             <p><strong>GSTIN: 36CRUPS1658B1ZD</strong></p>
         </div>
         <div class="invoice-meta">
-            <input type="text" id="invNo" placeholder="Invoice Number">
+            <label for="invNo">Invoice Number:</label>
+            <input type="text" id="invNo" placeholder="Enter Invoice Number">
+            <label for="invDate">Invoice Date:</label>
             <input type="date" id="invDate">
-            <input type="text" id="poNo" placeholder="PO Number">
+            <label for="poNo">PO Number:</label>
+            <input type="text" id="poNo" placeholder="Enter PO Number">
         </div>
     </header>
 
@@ -32,6 +35,7 @@
         <div class="bill-to">
             <h3>Ship To / Bill To:</h3>
             <textarea id="shipTo" placeholder="Enter Client Address..."></textarea>
+            <label for="buyerGstin">Buyer GSTIN:</label>
             <input type="text" id="buyerGstin" placeholder="Buyer GSTIN (e.g. 36...)" oninput="calculateInvoice()">
             <p id="gstType" class="badge">Type: Intra-State (CGST/SGST)</p>
         </div>
