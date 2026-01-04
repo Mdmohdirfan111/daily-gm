@@ -1,261 +1,262 @@
 :root {
-    --primary: #1a237e; /* Deep indigo for professionalism */
-    --accent: #4caf50; /* Green for accents */
-    --secondary: #f50057; /* Pink for highlights if needed */
+    --primary: #1a237e;
+    --accent: #4caf50;
     --border: #e0e0e0;
-    --background: #fafafa;
-    --text: #212121;
-    --subtext: #757575;
 }
 
-body { 
-    font-family: 'Roboto', system-ui, sans-serif; 
-    background: var(--background); 
-    color: var(--text); 
-    margin: 0; 
-    padding: 20px; 
-    line-height: 1.6;
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Roboto', system-ui, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 15px;
+    color: #333;
 }
 
-.container { 
-    max-width: 1100px; 
-    margin: auto; 
-    background: white; 
-    padding: 40px; 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: white;
+    padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-header { 
-    display: flex; 
-    justify-content: space-between; 
+header {
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-    border-bottom: 3px solid var(--primary); 
-    padding-bottom: 25px; 
-    margin-bottom: 30px;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
 }
 
-.company-info h1 { 
-    margin: 0; 
-    color: var(--primary); 
-    font-size: 2.2em; 
-    letter-spacing: 1px; 
-    text-transform: uppercase;
-    font-weight: bold;
+.company-info h1 {
+    font-size: 2em;
+    color: var(--primary);
+    margin: 0 0 8px 0;
 }
 
 .company-info h2 {
-    margin: 8px 0;
+    font-size: 1.5em;
     color: var(--accent);
-    font-size: 1.6em;
+    margin: 5px 0;
 }
 
 .company-info p {
     margin: 4px 0;
-    font-size: 1em;
-    color: var(--subtext);
+    font-size: 0.95em;
 }
 
-.invoice-meta {
+.invoice-meta > div {
+    margin-bottom: 8px;
     text-align: right;
 }
 
 .invoice-meta label {
+    font-size: 0.85em;
+    color: #555;
     display: block;
-    font-size: 0.9em;
-    color: var(--subtext);
-    margin-bottom: 4px;
 }
 
 .invoice-meta input {
-    display: block;
-    margin-bottom: 12px;
+    width: 200px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+h3 { margin: 15px 0 8px 0; font-size: 1.1em; }
+
+textarea {
+    width: 100%;
+    height: 80px;
     padding: 10px;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    width: 220px;
-    font-size: 1em;
+    border-radius: 4px;
+    resize: vertical;
 }
 
-.billing-section label {
+.gstin-row {
+    margin: 10px 0;
+}
+
+.gstin-row label {
     display: block;
     font-size: 0.9em;
-    color: var(--subtext);
     margin-bottom: 4px;
-}
-
-textarea { 
-    width: 100%; 
-    height: 110px; 
-    margin: 15px 0; 
-    border: 1px solid var(--border); 
-    padding: 12px; 
-    border-radius: 6px;
-    resize: vertical;
-    font-size: 1em;
 }
 
 #buyerGstin {
     width: 100%;
-    padding: 10px;
+    padding: 8px 10px;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
-.badge { 
-    display: inline-block; 
-    padding: 8px 16px; 
-    background: #e8f5e9; 
-    color: #2e7d32; 
-    border-radius: 30px; 
-    font-weight: bold;
-    font-size: 0.95em;
-}
-
-.controls {
-    margin: 25px 0;
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9em;
+    margin-top: 8px;
 }
 
 .controls button {
-    padding: 12px 24px;
+    padding: 10px 20px;
     background: var(--accent);
     color: white;
     border: none;
-    cursor: pointer;
-    margin-right: 12px;
     border-radius: 6px;
-    font-size: 1em;
-    transition: 0.3s;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 0.95em;
 }
 
-.controls button:hover {
-    background: #388e3c;
-    transform: translateY(-2px);
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.92em;
 }
 
-table { 
-    width: 100%; 
-    border-collapse: separate; 
-    border-spacing: 0; 
-    margin-top: 20px; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-th { 
-    background: var(--primary); 
-    color: white; 
-    padding: 16px; 
-    font-weight: 500;
+th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 8px;
     text-align: left;
+    font-weight: 500;
 }
 
-td { 
-    border-bottom: 1px solid var(--border); 
-    padding: 12px;
-    background: white;
+td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
 }
 
-input[type="text"], input[type="number"], input[type="date"] { 
-    width: 100%; 
-    border: none; 
-    outline: none; 
-    background: transparent; 
-    padding: 4px 0;
-    font-size: 1em;
+input[type="text"], input[type="number"] {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: inherit;
+    padding: 2px 0;
 }
 
-input[type="number"] {
-    text-align: right;
+input[type="number"] { text-align: right; }
+
+.totals-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--primary);
 }
 
-.totals-area { 
-    display: flex; 
-    justify-content: space-between; 
-    margin-top: 40px; 
-    border-top: 3px double var(--border); 
-    padding-top: 25px; 
-}
-
-.gst-breakdown { 
-    font-size: 1.05em; 
-    line-height: 1.8;
-    color: var(--text);
+.gst-breakdown {
+    line-height: 1.6;
     font-weight: 500;
 }
 
 .final-calc p {
     text-align: right;
-    font-size: 1.1em;
-    margin: 8px 0;
+    margin: 6px 0;
+    font-size: 1.05em;
 }
 
 .final-calc h3 {
-    color: var(--primary);
-    font-size: 1.6em;
     text-align: right;
+    color: var(--primary);
+    font-size: 1.4em;
+    margin-top: 10px;
 }
 
-.btn-download { 
-    padding: 14px 30px; 
-    background: var(--primary); 
-    color: white; 
-    border: none; 
-    cursor: pointer; 
-    margin: 8px; 
-    border-radius: 6px; 
-    font-size: 1.05em;
-    transition: 0.3s;
-}
-
-.btn-download:hover {
-    background: #303f9f;
-    transform: translateY(-2px);
+.btn-download {
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 8px;
+    font-size: 1em;
 }
 
 .no-print button[onclick*="remove"] {
     background: #e74c3c;
     color: white;
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.2em;
 }
 
-footer p {
-    text-align: center;
-    margin-top: 30px;
-    color: var(--subtext);
-    font-style: italic;
-}
-
+/* ====================== COMPACT PDF LAYOUT ====================== */
 @media print {
-    body { background: white; padding: 0; }
-    .container { box-shadow: none; padding: 20px; }
-    .no-print, .controls { display: none; }
-    th:last-child, td:last-child { display: none; }
-    header { padding-bottom: 10px; margin-bottom: 10px; }
-    .billing-section { margin-top: 10px; }
-    table { margin-top: 10px; page-break-inside: auto; }
-    .totals-area { margin-top: 20px; padding-top: 10px; }
-    tr { page-break-inside: avoid; page-break-after: auto; }
-    thead { display: table-header-group; }
-    textarea { height: 60px !important; }
-    .invoice-meta input, #buyerGstin { width: auto; border: 1px solid var(--border); padding: 5px; }
+    body { padding: 0; background: white; }
+    .container { padding: 15px; box-shadow: none; border-radius: 0; }
+    .no-print, .controls { display: none !important; }
+    th:last-child, td:last-child { display: none !important; }
 }
 
-/* For html2pdf emulation */
-.printing .no-print, .printing .controls, .printing th:last-child, .printing td:last-child { display: none !important; }
-.printing { box-shadow: none !important; width: 100% !important; padding: 20px !important; margin: 0 !important; background: white !important; }
-.printing header { padding-bottom: 10px !important; margin-bottom: 10px !important; }
-.printing .billing-section { margin-top: 10px !important; }
-.printing table { margin-top: 10px !important; page-break-inside: auto !important; }
-.printing .totals-area { margin-top: 20px !important; padding-top: 10px !important; }
-.printing tr { page-break-inside: avoid !important; page-break-after: auto !important; }
-.printing thead { display: table-header-group !important; }
-.printing textarea { height: 60px !important; }
-.printing .invoice-meta input, .printing #buyerGstin { width: auto !important; border: 1px solid var(--border) !important; padding: 5px !important; }
+.printing, .container.print-mode {
+    padding: 15px !important;
+    font-size: 11px !important;
+}
+
+.printing header,
+.print-mode header {
+    padding-bottom: 8px !important;
+    margin-bottom: 10px !important;
+}
+
+.printing .company-info p,
+.print-mode .company-info p {
+    font-size: 10px;
+    margin: 2px 0;
+}
+
+.printing textarea,
+.print-mode textarea {
+    height: 60px !important;
+    font-size: 11px !important;
+    border: 1px solid #ccc !important;
+    padding: 6px !important;
+}
+
+.printing table,
+.print-mode table {
+    font-size: 10px !important;
+    margin: 10px 0 !important;
+}
+
+.printing th,
+.print-mode th {
+    padding: 6px 4px !important;
+}
+
+.printing td,
+.print-mode td {
+    padding: 5px 4px !important;
+}
+
+.printing .totals-area,
+.print-mode .totals-area {
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+}
+
+.printing .final-calc p,
+.print-mode .final-calc p {
+    font-size: 11px !important;
+    margin: 4px 0;
+}
+
+.printing .final-calc h3,
+.print-mode .final-calc h3 {
+    font-size: 13px !important;
+}
