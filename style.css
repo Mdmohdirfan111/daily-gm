@@ -1,26 +1,28 @@
 :root {
-    --primary: #1a237e;
-    --accent: #4caf50;
-    --border: #e0e0e0;
+    --primary: #1e3a8a;
+    --accent: #10b981;
+    --border: #000000;
+    --light-bg: #f8fafc;
 }
 
 * { box-sizing: border-box; }
 
 body {
-    font-family: 'Roboto', system-ui, sans-serif;
-    background: #f5f7fa;
+    font-family: 'Roboto', sans-serif;
+    background: var(--light-bg);
     margin: 0;
-    padding: 15px;
-    color: #333;
+    padding: 20px;
+    color: #1f2937;
 }
 
 .container {
     max-width: 1100px;
     margin: auto;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid #e2e8f0;
 }
 
 header {
@@ -28,113 +30,123 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     border-bottom: 3px solid var(--primary);
-    padding-bottom: 12px;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    background: #eef2ff;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .company-info h1 {
-    font-size: 2em;
+    font-size: 2.2em;
     color: var(--primary);
-    margin: 0 0 8px 0;
+    margin: 0 0 10px 0;
+    font-weight: 700;
 }
 
 .company-info h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     color: var(--accent);
-    margin: 5px 0;
+    margin: 8px 0;
 }
 
 .company-info p {
-    margin: 4px 0;
-    font-size: 0.95em;
+    margin: 6px 0;
+    font-size: 1em;
+    line-height: 1.5;
 }
 
-.invoice-meta > div {
-    margin-bottom: 8px;
+.invoice-meta {
     text-align: right;
 }
 
-.invoice-meta label {
-    font-size: 0.85em;
-    color: #555;
+.field {
+    margin-bottom: 12px;
+}
+
+.field label {
     display: block;
+    font-weight: 500;
+    font-size: 0.95em;
+    color: #374151;
 }
 
-.invoice-meta input {
-    width: 200px;
-    padding: 6px 10px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
+.field input {
+    width: 220px;
+    padding: 8px 12px;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    font-size: 1em;
 }
 
-h3 { margin: 15px 0 8px 0; font-size: 1.1em; }
+h3 {
+    margin: 20px 0 10px;
+    font-size: 1.2em;
+    color: var(--primary);
+}
 
 textarea {
     width: 100%;
-    height: 80px;
-    padding: 10px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
+    height: 90px;
+    padding: 12px;
+    border: 1px solid #94a3b8;
+    border-radius: 8px;
     resize: vertical;
-}
-
-.gstin-row {
-    margin: 10px 0;
+    font-size: 1em;
 }
 
 .gstin-row label {
     display: block;
-    font-size: 0.9em;
-    margin-bottom: 4px;
+    margin: 12px 0 6px;
+    font-weight: 500;
 }
 
 #buyerGstin {
     width: 100%;
-    padding: 8px 10px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-}
-
-.badge {
-    display: inline-block;
-    padding: 6px 14px;
-    background: #e8f5e9;
-    color: #2e7d32;
-    border-radius: 20px;
-    font-weight: 500;
-    font-size: 0.9em;
-    margin-top: 8px;
+    padding: 10px 12px;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
 }
 
 .controls button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     background: var(--accent);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-right: 10px;
-    font-size: 0.95em;
+    margin-right: 12px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.controls button:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(16,185,129,0.3);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
-    font-size: 0.92em;
+    margin: 20px 0;
+    font-size: 0.95em;
+    border: 2px solid var(--border);
 }
 
 th {
     background: var(--primary);
     color: white;
-    padding: 10px 8px;
+    padding: 12px 8px;
     text-align: left;
+    border: 1px solid var(--border);
     font-weight: 500;
 }
 
 td {
-    padding: 8px;
-    border-bottom: 1px solid var(--border);
+    padding: 10px 8px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
 }
 
 input[type="text"], input[type="number"] {
@@ -143,7 +155,7 @@ input[type="text"], input[type="number"] {
     outline: none;
     background: transparent;
     font-size: inherit;
-    padding: 2px 0;
+    padding: 4px 0;
 }
 
 input[type="number"] { text-align: right; }
@@ -151,112 +163,85 @@ input[type="number"] { text-align: right; }
 .totals-area {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 2px solid var(--primary);
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 3px double var(--primary);
+    background: #f0f9ff;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .gst-breakdown {
-    line-height: 1.6;
-    font-weight: 500;
+    line-height: 1.8;
+    font-weight: 600;
+    font-size: 1.05em;
 }
 
 .final-calc p {
     text-align: right;
-    margin: 6px 0;
-    font-size: 1.05em;
+    margin: 8px 0;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 
 .final-calc h3 {
     text-align: right;
     color: var(--primary);
-    font-size: 1.4em;
-    margin-top: 10px;
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-top: 12px;
 }
 
-.btn-download {
-    padding: 12px 24px;
+.btn-print {
+    padding: 16px 40px;
     background: var(--primary);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
-    margin: 8px;
-    font-size: 1em;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 20px 0;
+    transition: all 0.3s;
+}
+
+.btn-print:hover {
+    background: #1e40af;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(30,58,138,0.3);
 }
 
 .no-print button[onclick*="remove"] {
-    background: #e74c3c;
+    background: #ef4444;
     color: white;
     border: none;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
+    font-size: 1.3em;
 }
 
-/* ====================== COMPACT PDF LAYOUT ====================== */
+footer p {
+    text-align: center;
+    margin-top: 40px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* Print Styles - Compact & Clean */
 @media print {
-    body { padding: 0; background: white; }
-    .container { padding: 15px; box-shadow: none; border-radius: 0; }
+    body { background: white; padding: 0; }
+    .container { 
+        padding: 15px; 
+        box-shadow: none; 
+        border: none; 
+        border-radius: 0; 
+    }
     .no-print, .controls { display: none !important; }
     th:last-child, td:last-child { display: none !important; }
-}
-
-.printing, .container.print-mode {
-    padding: 15px !important;
-    font-size: 11px !important;
-}
-
-.printing header,
-.print-mode header {
-    padding-bottom: 8px !important;
-    margin-bottom: 10px !important;
-}
-
-.printing .company-info p,
-.print-mode .company-info p {
-    font-size: 10px;
-    margin: 2px 0;
-}
-
-.printing textarea,
-.print-mode textarea {
-    height: 60px !important;
-    font-size: 11px !important;
-    border: 1px solid #ccc !important;
-    padding: 6px !important;
-}
-
-.printing table,
-.print-mode table {
-    font-size: 10px !important;
-    margin: 10px 0 !important;
-}
-
-.printing th,
-.print-mode th {
-    padding: 6px 4px !important;
-}
-
-.printing td,
-.print-mode td {
-    padding: 5px 4px !important;
-}
-
-.printing .totals-area,
-.print-mode .totals-area {
-    margin-top: 10px !important;
-    padding-top: 10px !important;
-}
-
-.printing .final-calc p,
-.print-mode .final-calc p {
-    font-size: 11px !important;
-    margin: 4px 0;
-}
-
-.printing .final-calc h3,
-.print-mode .final-calc h3 {
-    font-size: 13px !important;
+    header { background: none !important; }
+    .totals-area { background: none !important; }
+    table, th, td { border: 1px solid black !important; }
+    input { border: none !important; }
 }
