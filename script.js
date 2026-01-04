@@ -37,8 +37,9 @@ function removeRow(btn) {
 function renumberRows() {
     const rows = document.querySelectorAll('#tableBody tr');
     rows.forEach((row, index) => {
-        row.querySelector('td:first-child').innerText = index + 1;
+        row.cells[0].innerText = index + 1;
     });
+    rowCount = rows.length;
 }
 
 function calculateInvoice() {
@@ -76,7 +77,7 @@ function calculateInvoice() {
         if (isInterState) {
             breakdownHtml += `IGST @ ${rate}% on ₹${amt.toFixed(2)}: ₹${tax.toFixed(2)}<br>`;
         } else {
-            const halfRate = (rate / 2).toFixed(2);
+            const halfRate = (rate / 2).toFixed(1);
             const halfTax = (tax / 2).toFixed(2);
             breakdownHtml += `CGST @ ${halfRate}%: ₹${halfTax} | SGST @ ${halfRate}%: ₹${halfTax}<br>`;
         }
@@ -93,37 +94,34 @@ function calculateInvoice() {
 }
 
 function numberToWords(num) {
-    const belowTwenty = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-    const thousands = ['', 'Thousand', 'Lakh', 'Crore'];
-
     if (num === 0) return 'Zero';
 
-    function helper(n) {
-        if (n < 20) return belowTwenty[n];
-        if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + belowTwenty[n % 10] : '');
-        if (n < 1000) return belowTwenty[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' ' + helper(n % 100) : '');
-        let str = '';
-        let i = 0;
-        while (n > 0) {
-            if (i === 0 || i === 1) {
-                str = helper(n % 100) + (str ? ' ' + str : '');
-            } else {
-                str = helper(n % 1000) + (str ? ' ' + str : '');
-            }
-            if (str && thousands[i]) str = str + ' ' + thousands[i];
-            n = Math.floor(n / (i === 0 ? 1000 : 100));
-            i++;
-        }
-        return str.trim();
+    const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                  'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+    function convertBelowThousand(n) {
+        if (n === 0) return '';
+        if (n < 20) return ones[n];
+        if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + ones[n % 10] : '');
+        return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' ' + convertBelowThousand(n % 100) : '');
     }
 
-    const integerPart = Math.floor(num);
-    const decimalPart = Math.round((num - integerPart) * 100);
+    let words = '';
+    let crore = Math.floor(num / 10000000);
+    num %= 10000000;
+    let lakh = Math.floor(num / 100000);
+    num %= 100000;
+    let thousand = Math.floor(num / 1000);
+    num %= 1000;
+    let hundreds = num;
 
-    let words = helper(integerPart);
-    if (decimalPart > 0) words += ' and ' + helper(decimalPart) + ' Paise';
-    return words;
+    if (crore) words += convertBelowThousand(crore) + ' Crore ';
+    if (lakh) words += convertBelowThousand(lakh) + ' Lakh ';
+    if (thousand) words += convertBelowThousand(thousand) + ' Thousand ';
+    if (hundreds) words += convertBelowThousand(hundreds);
+
+    return words.trim() || 'Zero';
 }
 
 document.getElementById('excelImport').addEventListener('change', (e) => {
@@ -143,9 +141,9 @@ document.getElementById('excelImport').addEventListener('change', (e) => {
 });
 
 function validateAndPrint() {
-    const requiredFields = document.querySelectorAll('[required]');
+    const required = document.querySelectorAll('[required]');
     let valid = true;
-    requiredFields.forEach(field => {
+    required.forEach(field => {
         if (!field.value.trim()) {
             field.style.borderColor = 'red';
             valid = false;
@@ -154,13 +152,14 @@ function validateAndPrint() {
         }
     });
     if (!valid) {
-        alert('Please fill all required fields.');
+        alert('Please fill all required fields before printing.');
         return;
     }
     window.print();
 }
 
 function saveInvoice() {
+    // ... (same as before)
     const invoiceData = {
         invNo: document.getElementById('invNo').value,
         invDate: document.getElementById('invDate').value,
@@ -184,11 +183,12 @@ function saveInvoice() {
 }
 
 function loadInvoices() {
+    // ... (same as before)
     const list = document.getElementById('savedInvoices');
     list.innerHTML = '';
     invoices.forEach((inv, index) => {
         const li = document.createElement('li');
-        li.innerText = `${inv.invNo} - ${inv.invDate}`;
+        li.innerText = `${inv.invNo} - ${inv.invDate || 'No Date'}`;
         li.onclick = () => loadInvoice(index);
         list.appendChild(li);
     });
@@ -196,6 +196,7 @@ function loadInvoices() {
 }
 
 function loadInvoice(index) {
+    // ... (same as before)
     const inv = invoices[index];
     document.getElementById('invNo').value = inv.invNo;
     document.getElementById('invDate').value = inv.invDate;
