@@ -120,6 +120,7 @@ textarea {
     display: flex;
     gap: 12px;
     margin: 25px 0;
+    flex-wrap: wrap;
 }
 
 .controls button {
@@ -130,12 +131,10 @@ textarea {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 500;
-    transition: background 0.3s, transform 0.3s;
 }
 
 .controls button:hover {
     background: #16a34a;
-    transform: translateY(-2px);
 }
 
 .table-wrapper {
@@ -169,6 +168,7 @@ td input {
     text-align: center;
     width: 100%;
     padding: 4px;
+    border: none;
 }
 
 .summary-box {
@@ -180,18 +180,40 @@ td input {
     margin: 40px 0;
     border: 2px solid var(--primary);
     box-shadow: 0 8px 20px rgba(29,78,216,0.1);
+    gap: 30px;
 }
 
 .gst-breakdown {
-    font-size: 1.15em;
-    line-height: 1.8;
-    font-weight: 500;
-    flex: 1;
+    flex: 2;
+    font-size: 1.05em;
+}
+
+.gst-summary {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95em;
+}
+
+.gst-summary th,
+.gst-summary td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: center;
+}
+
+.gst-summary th {
+    background: #bfdbfe;
+}
+
+.gst-summary .total-row {
+    background: #93c5fd;
+    font-weight: bold;
 }
 
 .final-calc {
-    text-align: right;
     flex: 1;
+    text-align: right;
 }
 
 .final-calc p, .final-calc h3 {
@@ -211,24 +233,61 @@ td input {
     margin-top: 15px;
 }
 
-.btn-print {
-    display: block;
-    width: 100%;
-    padding: 18px;
-    background: var(--primary);
-    color: white;
+.additional-info {
+    margin: 40px 0;
+}
+
+.terms ol {
+    padding-left: 20px;
+    line-height: 1.8;
+}
+
+.signature-box {
+    display: flex;
+    justify-content: space-between;
+    margin: 60px 0 40px;
+    padding-top: 20px;
+    border-top: 1px solid #000;
+}
+
+.receiver-sign, .company-sign {
+    text-align: center;
+    min-width: 250px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.btn-print, .btn-download {
+    padding: 15px 30px;
     border: none;
     border-radius: 12px;
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: 600;
     cursor: pointer;
-    margin: 40px 0 20px;
-    transition: background 0.3s, transform 0.3s;
+}
+
+.btn-print {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-download {
+    background: var(--accent);
+    color: white;
 }
 
 .btn-print:hover {
     background: #1e40af;
-    transform: scale(1.02);
+}
+
+.btn-download:hover {
+    background: #16a34a;
 }
 
 .professional-note {
@@ -269,21 +328,26 @@ td input {
 
 @media print {
     body { padding: 0; background: white; }
-    .container { padding: 20px; box-shadow: none; border: none; border-radius: 0; max-width: none; }
+    .container { padding: 20px; box-shadow: none; border: none; max-width: none; }
     .no-print { display: none !important; }
     th:last-child, td:last-child { display: none !important; }
     .table-wrapper { overflow: visible; }
     table { min-width: auto; font-size: 10pt; }
     th, td { padding: 8px 6px; }
     .summary-box { padding: 20px; margin: 30px 0; page-break-inside: avoid; }
-    .controls, footer, #invoiceList { display: none !important; }
     input, textarea { border: none !important; background: transparent !important; }
+    .gst-summary { font-size: 9pt; }
 }
+
+.pdf-mode .no-print { display: none !important; }
+.pdf-mode input,
+.pdf-mode textarea { border: none !important; background: transparent !important; }
 
 @media (max-width: 768px) {
     header { flex-direction: column; gap: 20px; }
     .meta-row { flex-direction: column; gap: 15px; }
-    .summary-box { flex-direction: column; gap: 25px; }
+    .summary-box { flex-direction: column; }
     .final-calc { text-align: left; }
-    .table-wrapper { -webkit-overflow-scrolling: touch; }
+    .action-buttons { flex-direction: column; align-items: center; }
+    .signature-box { flex-direction: column; gap: 40px; }
 }
