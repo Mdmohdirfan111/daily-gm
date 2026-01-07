@@ -7,51 +7,43 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="invoiceContent">
     <header>
         <div class="company-info">
             <h1>TAX INVOICE</h1>
             <h2>JMD Enterprises</h2>
-            <p>Dispatch of goods from: Sai Tower, Rukhminipuri, Hyderabad, Telangana - 500062</p>
-            <p>Phone: +91 7095460374 | Email: jmdenterprises1985.108@gmail.com</p>
-            <p><strong>GSTIN: 36CRUPS1658B1ZD</strong></p>
+            <p>Dispatch: Sai Tower, Rukhminipuri, Hyderabad, TG - 500062</p>
+            <p>Phone: +91 7095460374 | GSTIN: 36CRUPS1658B1ZD</p>
         </div>
         <div class="invoice-meta">
-            <div class="meta-row">
-                <div class="field">
-                    <label>Invoice No:</label>
-                    <input type="text" id="invNo" placeholder="INV-001" readonly>
-                </div>
-                <div class="field">
-                    <label>Date:</label>
-                    <input type="date" id="invDate" required>
-                </div>
-                <div class="field">
-                    <label>PO No:</label>
-                    <input type="text" id="poNo" placeholder="PO123">
-                </div>
-            </div>
+            <div class="field"><label>Inv No:</label><input type="text" id="invNo" readonly></div>
+            <div class="field"><label>Date:</label><input type="date" id="invDate"></div>
+            <div class="field"><label>PO No:</label><input type="text" id="poNo"></div>
         </div>
     </header>
 
     <section class="billing-section">
         <h3>Ship To / Bill To:</h3>
-        <textarea id="shipTo" placeholder="Enter client name, full address, and contact details..." required></textarea>
+        <textarea id="shipTo" placeholder="Client Name & Address..." required></textarea>
         <div class="gstin-row">
             <label>Buyer GSTIN:</label>
-            <input type="text" id="buyerGstin" placeholder="e.g. 36AAAAA0000A1Z5" oninput="calculateInvoice()" required>
+            <input type="text" id="buyerGstin" placeholder="e.g. 36AAAAA0000A1Z5" oninput="calculateInvoice()" maxlength="15">
         </div>
     </section>
 
     <div class="controls no-print">
-        <button onclick="addRow()">+ Add Item</button>
-        <button onclick="document.getElementById('excelImport').click()">Upload Excel</button>
+        <button onclick="addRow()" style="background: var(--primary);">+ Add Item</button>
+        <button onclick="document.getElementById('excelImport').click()">Import Excel</button>
         <input type="file" id="excelImport" accept=".xlsx,.xls" hidden>
-        <button onclick="saveInvoice()">Save Invoice</button>
-        <button onclick="loadInvoices()">Load Saved</button>
+        <button onclick="downloadExcel()" style="background: #15803d;">Export Excel</button>
+        <button onclick="generatePDF()" style="background: #b91c1c;">Download PDF</button>
+        <button onclick="saveInvoice()">Save</button>
+        <button onclick="loadInvoices()">History</button>
     </div>
 
     <div class="table-wrapper">
@@ -59,14 +51,12 @@
             <thead>
                 <tr>
                     <th>S.No</th>
-                    <th>Item Description</th>
-                    <th>HSN/SAC Code</th>
-                    <th>GST Rate (%)</th>
-                    <th>Quantity</th>
-                    <th>MRP</th>
-                    <th>Margin (%)</th>
-                    <th>Unit Price</th>
-                    <th>Taxable Value</th>
+                    <th>Description</th>
+                    <th>HSN</th>
+                    <th>GST%</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Taxable</th>
                     <th class="no-print">Action</th>
                 </tr>
             </thead>
@@ -75,20 +65,22 @@
     </div>
 
     <div class="summary-box">
-        <div class="gst-breakdown" id="gstBreakdown"></div>
+        <div class="gst-breakdown" id="gstBreakdown">
+            <strong>GST Breakdown:</strong><br>
+            Waiting for data...
+        </div>
         <div class="final-calc">
-            <p>Total Quantity: <span id="totalQty">0</span></p>
-            <p>Total Taxable Value: ₹<span id="totalTaxable">0.00</span></p>
-            <p>Total GST Amount: ₹<span id="totalGst">0.00</span></p>
-            <hr>
-            <h3>Grand Total: ₹<span id="grandTotal">0.00</span></h3>
-            <p id="grandTotalWords" class="amount-in-words">Amount in Words: Zero Rupees Only</p>
+            <p>Total Qty: <span id="totalQty">0</span></p>
+            <p>Taxable Value: ₹<span id="totalTaxable">0.00</span></p>
+            <p>GST Amount: ₹<span id="totalGst">0.00</span></p>
+            <h3>Total: ₹<span id="grandTotal">0.00</span></h3>
         </div>
     </div>
+    <p id="grandTotalWords" class="amount-in-words">Amount in Words: Zero Rupees Only</p>
 
-    <footer class="no-print">
-        <button class="btn-print" onclick="validateAndPrint()">Print Invoice</button>
-        <p class="professional-note">Powered by JMD Professional Invoice Management System | Developed by Irfan Shaik</p>
+    <footer>
+        <button class="btn-print no-print" onclick="validateAndPrint()">Print Invoice</button>
+        <p class="professional-note">Powered by JMD System | Developed by Mohd Irfan & Irfan Shaik</p>
     </footer>
 
     <div id="invoiceList" class="no-print" style="display: none;">
